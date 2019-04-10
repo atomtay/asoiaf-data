@@ -8,9 +8,9 @@ autopep8 = "*"
 
 [packages]
 django = "*"
+gunicorn = "*"
 psycopg2-binary = "*"
-django-jchart = "*"
-chartjs = "*"
+psycopg2 = "*"
 
 [requires]
-python_version = "3.5.7"
+python_version = "3.7"
