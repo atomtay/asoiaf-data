@@ -1,17 +1,10 @@
-{% extends 'asoiaf/base.html' %}
-{%block content %}
-        Test
-        {{greet}}
-        {{this.get_number}}
-        {{female_chars}}
-        <p>{{male_chars}}</p>
-        {% comment %} <canvas id="myChart" width="500" height="400"></canvas>
-        <script type="text/javascript">
-            $.get('{% url "line_chart_json" %}', function(data) {
-                var ctx = $("#myChart").get(0).getContext("2d");
-                new Chart(ctx, {
-                    type: 'line', data: data
-                });
-            });
-        </script> {% endcomment %}
-{%endblock %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  </head>
+  <body>
+    hello world!
+  </body>
+</html>

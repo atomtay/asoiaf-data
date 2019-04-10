@@ -1,1 +1,1 @@
-web: gunicorn asoiaf_proj.wsgi --log-file - --log-level debug
+web: gunicorn asoiaf_proj.wsgi --log-file -

@@ -1,10 +1,5 @@
-from random import randint
 from django.views.generic import TemplateView
-# from chartjs.views.lines import BaseLineChartView
 from django.shortcuts import render
-from .models import Character, Death
-
-from django.http import HttpResponse
 
 
 class HomeView(TemplateView):
@@ -13,7 +8,6 @@ class HomeView(TemplateView):
 
     def get(self, request):
         return render(request, self.template_name, {'greet': self.greeting})
-        # return HttpResponse(self.greeting)
 
     def get_number(self):
         return 4

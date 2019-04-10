@@ -1,1 +1,16 @@
-gunicorn==0.14.2
+autopep8==1.4.3
+chartjs==1.2
+dj-database-url==0.5.0
+dj-static==0.0.6
+Django==1.11.20
+django-chartjs==1.3
+django-jchart==0.4.2
+django-toolbelt==0.0.1
+gunicorn==19.9.0
+psycopg2-binary==2.8.1
+pycodestyle==2.5.0
+pytz==2019.1
+six==1.12.0
+sqlparse==0.3.0
+static3==0.7.0
+whitenoise==4.1.2
