@@ -1,12 +1,15 @@
 {% extends 'asoiaf/base.html' %}
 {%block content %}
-        {%with test=1 %}
-                {% for character in characters %}
-                        {% if character.chapter_of_death != -1 and character.manner_of_death != "Unknown" %}
-                                <p>{{ character }}<p>
-                                {{test|add:1}}
-                        {% endif %}
-                {% endfor %}
-        {{test}}
-        {%endwith%}
+        Test
+        {{female_chars}}
+        <p>{{male_chars}}</p>
+        <canvas id="myChart" width="500" height="400"></canvas>
+        <script type="text/javascript">
+            $.get('{% url "line_chart_json" %}', function(data) {
+                var ctx = $("#myChart").get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'line', data: data
+                });
+            });
+        </script>
 {%endblock %}
