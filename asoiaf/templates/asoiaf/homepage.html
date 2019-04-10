@@ -1,0 +1,12 @@
+{% extends 'asoiaf/base.html' %}
+{%block content %}
+        {%with test=1 %}
+                {% for character in characters %}
+                        {% if character.chapter_of_death != -1 and character.manner_of_death != "Unknown" %}
+                                <p>{{ character }}<p>
+                                {{test|add:1}}
+                        {% endif %}
+                {% endfor %}
+        {{test}}
+        {%endwith%}
+{%endblock %}

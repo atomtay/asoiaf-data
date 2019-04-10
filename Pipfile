@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autopep8 = "*"
+
+[packages]
+django = "*"
+psycopg2-binary = "*"
+django-jchart = "*"
+
+
+[requires]
+python_version = "3.5.7"
