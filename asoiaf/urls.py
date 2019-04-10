@@ -10,9 +10,9 @@ from . import views
 
 urlpatterns = [
     path('', HomeView.as_view()),
-    path('line_chart/', views.line_chart,
-         name='line_chart'),
-    url(r'^line_chart/json/$', views.line_chart_json,
-        name='line_chart_json'),
+    # path('line_chart/', views.line_chart,
+    #      name='line_chart'),
+    # url(r'^line_chart/json/$', views.line_chart_json,
+    #     name='line_chart_json'),
 
 ]
