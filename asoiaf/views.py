@@ -7,7 +7,7 @@ class HomeView(TemplateView):
     template_name = "homepage.html"
 
     def get(self, request):
-        return render(request, self.template_name, {'greet': self.greeting})
+        return render(request, self.template_name)
 
     def get_number(self):
         return 4
