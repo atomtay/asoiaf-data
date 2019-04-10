@@ -10,7 +10,7 @@ autopep8 = "*"
 django = "*"
 psycopg2-binary = "*"
 django-jchart = "*"
-
+chartjs = "*"
 
 [requires]
 python_version = "3.5.7"
