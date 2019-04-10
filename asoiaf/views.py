@@ -1,10 +1,23 @@
 from random import randint
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
+from django.shortcuts import render
+from .models import Character, Death
+
+from django.http import HttpResponse
 
 
 class HomeView(TemplateView):
+    greeting = len(Death.objects.filter(name__gender="Female"))
     template_name = "homepage.html"
+
+    def get(self, request):
+        return render(request, self.template_name, {'greet': self.greeting})
+        # return HttpResponse(self.greeting)
+
+    def get_number(self):
+        return 4
+        # return len(Character.objects.select_related('death'))
     # def homepage(request):
     #     female_chars = len(Character.objects.filter(gender="Female"))
     #     male_chars = len(Character.objects.filter(gender="Male"))
@@ -13,19 +26,20 @@ class HomeView(TemplateView):
 
 class LineChartJSONView(BaseLineChartView):
     def get_labels(self):
-        """Return 7 labels for the x-axis."""
-        return ["January", "February", "March", "April", "May", "June", "July"]
+        return ["Alive", "Dead"]
 
     def get_providers(self):
         """Return names of datasets."""
-        return ["Central", "Eastside", "Westside"]
+        return ["Female", "Male"]
 
     def get_data(self):
         """Return 3 datasets to plot."""
+        female_chars = len(Character.objects.filter(gender="Female"))
+        male_chars = len(Character.objects.filter(gender="Male"))
 
-        return [[75, 44, 92, 11, 44, 95, 35],
-                [41, 92, 18, 3, 73, 87, 92],
-                [87, 21, 94, 3, 90, 13, 65]]
+        dead_ladies = len(Character.objects.select_related('death'))
+
+        return [[female_chars, dead_ladies], [80, male_chars]]
 
 
 line_chart = TemplateView.as_view(template_name='line_chart.html')
