@@ -25,7 +25,7 @@ SECRET_KEY = 'dd*7u26aw+mzid30$4n+t4o$!)-se)-+4*ct!1=1^*_2t#d*cn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['asoiaf-data.herokuapp.com']
+ALLOWED_HOSTS = ['asoiaf-data.herokuapp.com','localhost']
 
 
 # Application definition
