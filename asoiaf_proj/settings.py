@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'dd*7u26aw+mzid30$4n+t4o$!)-se)-+4*ct!1=1^*_2t#d*cn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'asoiaf-data.herokuapp.com']
 
