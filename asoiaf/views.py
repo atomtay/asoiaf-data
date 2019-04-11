@@ -17,8 +17,8 @@ class HomeView(TemplateView):
     def homepage(request):
         # female_chars = len(Character.objects.filter(gender="Female"))
         # male_chars = len(Character.objects.filter(gender="Male"))
-        sample_book = Book.objects.filter(title="A Game of Thrones")
-        return render(request, 'asoiaf/homepage.html', {'book': sample_book})
+        sample_book = Book.objects.all()
+        return render(request, 'asoiaf/homepage.html', {'book': self.sample_book})
 
 
 # class LineChartJSONView(BaseLineChartView):
