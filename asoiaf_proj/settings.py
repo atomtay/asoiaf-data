@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'asoiaf_proj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'asoiaf',
-        'USER': 'asoiafuser',
-        'PASSWORD': 'asoiafadmin',
-        'HOST': 'localhost'
+        'NAME': 'hnkzqqlb',
+        'USER': 'hnkzqqlb',
+        'PASSWORD': 'gnEI8EyztulJqt-_l36jHM75SKhfEcgP',
+        'HOST': 'isilo.db.elephantsql.com'
     }
 }
 
