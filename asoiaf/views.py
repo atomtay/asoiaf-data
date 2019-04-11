@@ -4,21 +4,9 @@ from .models import Book
 
 
 class HomeView(TemplateView):
-    # greeting = len(Death.objects.filter(name__gender="Female"))
-    template_name = "homepage.html"
-
     def get(self, request):
-        return render(request, self.template_name)
-
-    def get_number(self):
-        return 4
-        # return len(Character.objects.select_related('death'))
-
-    def homepage(request):
-        # female_chars = len(Character.objects.filter(gender="Female"))
-        # male_chars = len(Character.objects.filter(gender="Male"))
-        sample_book = Book.objects.all()
-        return render(request, 'asoiaf/homepage.html', {'book': self.sample_book})
+        sample_book = Book.objects.filter(title="A Game of Thrones")
+        return render(request, "homepage.html")
 
 
 # class LineChartJSONView(BaseLineChartView):
