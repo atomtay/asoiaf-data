@@ -10,6 +10,7 @@ autopep8 = "*"
 django = "==2.2"
 gunicorn = "*"
 django-chartjs = "*"
+django-extensions = "*"
 
 [requires]
 python_version = ">=3.5"
