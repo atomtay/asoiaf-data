@@ -79,25 +79,25 @@ WSGI_APPLICATION = 'asoiaf_proj.wsgi.application'
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
-# DATABASES = {
-#     # 'default': dj_database_url.config(
-#     #     default=config('DATABASE_URL')
-#     # )
-#     'default': {'ENGINE': 'django.db.backends.postgresql',
-#                 'NAME': 'asoiaf',
-#                 'USER': 'asoiafuser',
-#                 'PASSWORD': 'asoiafadmin',
-#                 'HOST': 'localhost',
-#                 'PORT': '5432',
-#                 }
-#     # 'default': {'ENGINE': 'django.db.backends.postgresql',
-#     #             'NAME': 'dbi3a0i0tlkbvt',
-#     #             'USER': 'ohiwqmfnocozmj',
-#     #             'PASSWORD': 'fb5b03f7ded75507769c5b309c3192fb29103b280d597ef97847569a87932570',
-#     #             # 'HOST': 'localhost',
-#     #             'PORT': '5432',
-#     #             }
-# }
+DATABASES = {
+    #     # 'default': dj_database_url.config(
+    #     #     default=config('DATABASE_URL')
+    #     # )
+    'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'dbi3a0i0tlkbvt',
+                'USER': 'ohiwqmfnocozmj',
+                'PASSWORD': 'fb5b03f7ded75507769c5b309c3192fb29103b280d597ef97847569a87932570',
+                'HOST': 'ec2-23-21-133-106.compute-1.amazonaws.com',
+                'PORT': '5432',
+                }
+    #     # 'default': {'ENGINE': 'django.db.backends.postgresql',
+    #     #             'NAME': 'dbi3a0i0tlkbvt',
+    #     #             'USER': 'ohiwqmfnocozmj',
+    #     #             'PASSWORD': 'fb5b03f7ded75507769c5b309c3192fb29103b280d597ef97847569a87932570',
+    #     #             # 'HOST': 'localhost',
+    #     #             'PORT': '5432',
+    #     #             }
+}
 
 
 # Password validation
