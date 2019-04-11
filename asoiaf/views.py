@@ -60,8 +60,11 @@ class NewChartJSONView(BaseLineChartView):
             chapter_list = []
             for chapter in cursor.fetchall():
                 chapter_list.append(chapter[0])
+
+            cursor.execute("SELECT ROUND(AVG(asoiaf_chapter_of_death.chapter)), asoiaf_book.book_id, asoiaf_character.gender FROM asoiaf_character INNER JOIN asoiaf_chapter_of_death ON asoiaf_character.name=asoiaf_chapter_of_death.name INNER JOIN asoiaf_book_of_death ON asoiaf_character.name=asoiaf_book_of_death.name INNER JOIN asoiaf_book ON asoiaf_book.title=asoiaf_book_of_death.book GROUP BY asoiaf_book.book_id, asoiaf_character.gender ORDER BY asoiaf_book.book_id, asoiaf_character.gender;")
+            data = cursor.fetchall()
         return [[75, 44, 92, 11, 44],
-                [41, 92, 18, 3, 73],
+                data,
                 chapter_list]
 
 
