@@ -1,14 +1,13 @@
-from django.views.generic import TemplateView
 from django.shortcuts import render
 from .models import Book, Character, Chapter_of_Death, Book_of_Death, Death, Nobility
-
-from random import randint
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
 from django.db import connection
 
+home = TemplateView.as_view(template_name='home.html')
 
-class LineChartJSONView(BaseLineChartView):
+
+class BarChartJSONView(BaseLineChartView):
     def get_labels(self):
         return ["Total", "Alive", "Dead"]
 
@@ -42,11 +41,7 @@ class LineChartJSONView(BaseLineChartView):
                 [female_chars_total, alive_female_chars, dead_female_chars]]
 
 
-line_chart = TemplateView.as_view(template_name='line_chart.html')
-line_chart_json = LineChartJSONView.as_view()
-
-
-class NewChartJSONView(BaseLineChartView):
+class LineChartJSONView(BaseLineChartView):
     def get_labels(self):
         return ["A Game of Thrones", "A Clash of Kings", "A Storm of Swords", "A Feast for Crows", "A Dance with Dragons"]
 
@@ -77,13 +72,8 @@ class NewChartJSONView(BaseLineChartView):
                 chapter_list]
 
 
-new_chart = TemplateView.as_view(template_name='new_chart.html')
-new_chart_json = NewChartJSONView.as_view()
-
-
-class DoughnutJSONView(BaseLineChartView):
+class DoughnutGraphJSONView(BaseLineChartView):
     def get_labels(self):
-        # return ['Read', 'Write', 'Yes', 'No']
         with connection.cursor() as cursor:
             cursor.execute(
                 "SELECT asoiaf_death.manner_of_death, COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death.\"manner_of_death\" <> 'Unknown' AND asoiaf_character.\"gender\"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;")
@@ -113,5 +103,6 @@ class DoughnutJSONView(BaseLineChartView):
         # SELECT asoiaf_death.manner_of_death FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Female' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
 
 
-doughnut = TemplateView.as_view(template_name='doughnut_chart.html')
-doughnut_json = DoughnutJSONView.as_view()
+overview_bar_chart_json = BarChartJSONView.as_view()
+chapter_line_chart_json = LineChartJSONView.as_view()
+deaths_doughnut_graph_json = DoughnutGraphJSONView.as_view()
