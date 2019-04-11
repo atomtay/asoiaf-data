@@ -25,7 +25,7 @@ SECRET_KEY = 'dd*7u26aw+mzid30$4n+t4o$!)-se)-+4*ct!1=1^*_2t#d*cn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['asoiaf-data.herokuapp.com','localhost']
+ALLOWED_HOSTS = ['asoiaf-data.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'asoiaf_proj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'asoiaf',
-        'USER': 'asoiafuser',
-        'PASSWORD': 'asoiafadmin',
-        'HOST': 'localhost'
+        'NAME': 'hnkzqqlb',
+        'USER': 'hnkzqqlb',
+        'PASSWORD': 'gnEI8EyztulJqt-_l36jHM75SKhfEcgP',
+        'HOST': 'isilo.db.elephantsql.com'
     }
 }
 
