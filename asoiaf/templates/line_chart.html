@@ -13,13 +13,28 @@
 
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.2/Chart.min.js"></script>
-        <script type="text/javascript">
+        <script>
+            fetch('{% url "line_chart_json" %}')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                console.log(JSON.stringify(myJson));
+                var ctx = $("#myChart").get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar', data: myJson
+                });
+            });
+        </script>
+
+
+        {% comment %} <script type="text/javascript">
             $.get('{% url "line_chart_json" %}', function(data) {
                 var ctx = $("#myChart").get(0).getContext("2d");
                 new Chart(ctx, {
                     type: 'bar', data: data
                 });
             });
-        </script> 
+        </script>  {% endcomment %}
     </body>
 </html>
