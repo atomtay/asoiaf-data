@@ -55,8 +55,13 @@ class LineChartJSONView(BaseLineChartView):
         with connection.cursor() as cursor:
             cursor.execute(
                 "SELECT name from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name = asoiaf_death.name_id WHERE gender = 'Male'")
-            row = len(cursor.fetchall())
-        dead_male_chars = row
+            malerow = len(cursor.fetchall())
+
+            cursor.execute(
+                "SELECT name from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name = asoiaf_death.name_id WHERE gender = 'Female'")
+            femalerow = len(cursor.fetchall())
+        dead_male_chars = malerow
+        dead_female_chars = femalerow
 
         # SELECT count(name) from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name = asoiaf_death.name_id WHERE "gender" = 'Male'
 
@@ -67,17 +72,14 @@ class LineChartJSONView(BaseLineChartView):
         # Person.objects.raw(
         #     'SELECT count(name) from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name=asoiaf_death.name_id WHERE "gender"=\'Male\'')
 
-        dead_female_chars = 0
-        # dead_male_chars = 0
-
         alive_chars_total = chars_total - dead_chars_total
         alive_male_chars = male_chars_total - dead_male_chars
         alive_female_chars = female_chars_total - dead_female_chars
 
         # all characters
         return [[chars_total, alive_chars_total, dead_chars_total],
-                [male_chars_total, 0, dead_male_chars],
-                [female_chars_total, 0, 0]]
+                [male_chars_total, alive_male_chars, dead_male_chars],
+                [female_chars_total, alive_female_chars, dead_female_chars]]
         # male characters only
         # [len(male_chars_total), len(alive_male_chars), 0],
         # [len(female_chars_total), len(alive_female_chars), len(dead_female_chars)]]  # female characters only
