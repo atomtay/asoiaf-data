@@ -13,6 +13,9 @@ dj-database-url="*"
 whitenoise="*"
 django-chartjs="*"
 django-heroku = "*"
+wheel = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"
