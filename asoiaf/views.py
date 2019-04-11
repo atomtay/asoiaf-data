@@ -1,12 +1,19 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from .models import Book
+import requests
+from django.http import HttpResponse
 
 
-class HomeView(TemplateView):
-    def get(self, request):
-        sample_book = Book.objects.filter(title="A Game of Thrones")
-        return render(request, "homepage.html")
+# class HomeView(TemplateView):
+def index(request):
+    r = requests.get('http://httpbin.org/status/418')
+    print(r.text)
+    return HttpResponse('<pre>' + r.text + '</pre>')
+    # return HttpResponse('<pre>' + requests.get('http://httpbin.org/status/418').text + '</pre>')
+    # def get(self, request):
+    #     sample_book = Book.objects.filter(title="A Game of Thrones")
+    #     return render(request, "homepage.html")
 
 
 # class LineChartJSONView(BaseLineChartView):
