@@ -61,10 +61,19 @@ class NewChartJSONView(BaseLineChartView):
             for chapter in cursor.fetchall():
                 chapter_list.append(chapter[0])
 
-            cursor.execute("SELECT ROUND(AVG(asoiaf_chapter_of_death.chapter)), asoiaf_book.book_id, asoiaf_character.gender FROM asoiaf_character INNER JOIN asoiaf_chapter_of_death ON asoiaf_character.name=asoiaf_chapter_of_death.name INNER JOIN asoiaf_book_of_death ON asoiaf_character.name=asoiaf_book_of_death.name INNER JOIN asoiaf_book ON asoiaf_book.title=asoiaf_book_of_death.book GROUP BY asoiaf_book.book_id, asoiaf_character.gender ORDER BY asoiaf_book.book_id, asoiaf_character.gender;")
-            data = cursor.fetchall()
-        return [[75, 44, 92, 11, 44],
-                data,
+            cursor.execute("SELECT ROUND(AVG(asoiaf_chapter_of_death.chapter)) FROM asoiaf_character INNER JOIN asoiaf_chapter_of_death ON asoiaf_character.name=asoiaf_chapter_of_death.name INNER JOIN asoiaf_book_of_death ON asoiaf_character.name=asoiaf_book_of_death.name INNER JOIN asoiaf_book ON asoiaf_book.book_id=asoiaf_book_of_death.book_id WHERE asoiaf_character.\"gender\"=\'Female\' GROUP BY asoiaf_book.book_id ORDER BY asoiaf_book.book_id;")
+
+            female_chapter_list = []
+            for chapter in cursor.fetchall():
+                female_chapter_list.append(chapter[0])
+
+            cursor.execute("SELECT ROUND(AVG(asoiaf_chapter_of_death.chapter)) FROM asoiaf_character INNER JOIN asoiaf_chapter_of_death ON asoiaf_character.name=asoiaf_chapter_of_death.name INNER JOIN asoiaf_book_of_death ON asoiaf_character.name=asoiaf_book_of_death.name INNER JOIN asoiaf_book ON asoiaf_book.book_id=asoiaf_book_of_death.book_id WHERE asoiaf_character.\"gender\"=\'Male\' GROUP BY asoiaf_book.book_id ORDER BY asoiaf_book.book_id;")
+
+            male_chapter_list = []
+            for chapter in cursor.fetchall():
+                male_chapter_list.append(chapter[0])
+        return [male_chapter_list,
+                female_chapter_list,
                 chapter_list]
 
 
