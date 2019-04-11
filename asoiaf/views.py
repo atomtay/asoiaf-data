@@ -1,13 +1,15 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
+from .models import Book
 
 
 class HomeView(TemplateView):
     # greeting = len(Death.objects.filter(name__gender="Female"))
     template_name = "homepage.html"
+    book = Book.objects.filter(title="A Game of Thrones")[0]
 
     def get(self, request):
-        return render(request, self.template_name)
+        return render(request, self.template_name, {'book': self.book})
 
     def get_number(self):
         return 4
