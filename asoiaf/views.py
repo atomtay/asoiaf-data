@@ -79,3 +79,39 @@ class NewChartJSONView(BaseLineChartView):
 
 new_chart = TemplateView.as_view(template_name='new_chart.html')
 new_chart_json = NewChartJSONView.as_view()
+
+
+class DoughnutJSONView(BaseLineChartView):
+    def get_labels(self):
+        # return ['Read', 'Write', 'Yes', 'No']
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT asoiaf_death.manner_of_death, COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death.\"manner_of_death\" <> 'Unknown' AND asoiaf_character.\"gender\"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;")
+            male_death_types = []
+            for type in cursor.fetchall():
+                male_death_types.append(male_death_types[0])
+            return male_death_types
+
+    def get_providers(self):
+        return ["Manner of Death"]
+
+    def get_data(self):
+        return [4, 6, 3, 6]
+        # All manners and total count
+        # SELECT asoiaf_death.manner_of_death,COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+
+        # Male death counts
+        # SELECT asoiaf_death.manner_of_death,COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+
+        # Male death categories
+        # SELECT asoiaf_death.manner_of_death FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+
+        # Female death counts
+        # SELECT asoiaf_death.manner_of_death,COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Female' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+
+        # Female death categories
+        # SELECT asoiaf_death.manner_of_death FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Female' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+
+
+doughnut = TemplateView.as_view(template_name='doughnut_chart.html')
+doughnut_json = DoughnutJSONView.as_view()

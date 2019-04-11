@@ -6,12 +6,11 @@ from . import views
 
 urlpatterns = [
 
-    path('line_chart', views.line_chart),
-    url(r'^line_chart/json/$', views.line_chart_json,
-        name='line_chart_json'),
-    url(r'^new_chart/$', views.new_chart,
-        name='new_chart'),
-    url(r'^new_chart/json/$', views.new_chart_json,
-        name='new_chart_json'),
+    path('', views.line_chart),
+    url(r'^line_chart/json/$', views.line_chart_json, name='line_chart_json'),
+    url(r'^new_chart/json/$', views.new_chart_json, name='new_chart_json'),
+    path('doughnut/', views.doughnut, name='doughnut'),
+    url(r'^doughnut/json/$', views.doughnut_json,
+        name='doughnut_json')
 
 ]
