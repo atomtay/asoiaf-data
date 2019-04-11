@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
+from .models import Book
 
 
 class HomeView(TemplateView):
@@ -12,10 +13,12 @@ class HomeView(TemplateView):
     def get_number(self):
         return 4
         # return len(Character.objects.select_related('death'))
-    # def homepage(request):
-    #     female_chars = len(Character.objects.filter(gender="Female"))
-    #     male_chars = len(Character.objects.filter(gender="Male"))
-    #     return render(request, 'asoiaf/homepage.html', {'female_chars': female_chars, 'male_chars': male_chars})
+
+    def homepage(request):
+        # female_chars = len(Character.objects.filter(gender="Female"))
+        # male_chars = len(Character.objects.filter(gender="Male"))
+        sample_book = Book.objects.filter(title="A Game of Thrones")
+        return render(request, 'asoiaf/homepage.html', {'book': sample_book})
 
 
 # class LineChartJSONView(BaseLineChartView):
