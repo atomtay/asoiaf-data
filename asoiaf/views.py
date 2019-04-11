@@ -1,42 +1,41 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from .models import Book
+from .models import Book, Character, Chapter_of_Death, Book_of_Death, Death, Nobility
+
+from random import randint
+from django.views.generic import TemplateView
+from chartjs.views.lines import BaseLineChartView
+
+from django.http import HttpResponse
 
 
 class HomeView(TemplateView):
-    # greeting = len(Death.objects.filter(name__gender="Female"))
-    template_name = "homepage.html"
-    book = Book.objects.filter(title="A Game of Thrones")[0]
+
+    book = Character.objects.filter(name="Lysa Tully")[0].name
 
     def get(self, request):
-        return render(request, self.template_name, {'book': self.book})
+        return render(request, "homepage.html", {'book': self.book})
 
-    def get_number(self):
-        return 4
-        # return len(Character.objects.select_related('death'))
-    # def homepage(request):
     #     female_chars = len(Character.objects.filter(gender="Female"))
     #     male_chars = len(Character.objects.filter(gender="Male"))
-    #     return render(request, 'asoiaf/homepage.html', {'female_chars': female_chars, 'male_chars': male_chars})
 
 
-# class LineChartJSONView(BaseLineChartView):
-#     def get_labels(self):
-#         return ["Alive", "Dead"]
+class LineChartJSONView(BaseLineChartView):
+    def get_labels(self):
+        return ["Alive", "Dead"]
 
-#     def get_providers(self):
-#         """Return names of datasets."""
-#         return ["Female", "Male"]
+    def get_providers(self):
+        """Return names of datasets."""
+        return ["Female", "Male"]
 
-#     def get_data(self):
-#         """Return 3 datasets to plot."""
-#         female_chars = len(Character.objects.filter(gender="Female"))
-#         male_chars = len(Character.objects.filter(gender="Male"))
+    def get_data(self):
+        """Return 3 datasets to plot."""
 
-#         dead_ladies = len(Character.objects.select_related('death'))
+        female_chars = len(Character.objects.filter(gender="Female"))
+        male_chars = len(Character.objects.filter(gender="Male"))
+        dead_ladies = len(Character.objects.select_related('death'))
+        return [[60, female_chars], [male_chars, dead_ladies]]
 
-#         return [[female_chars, dead_ladies], [80, male_chars]]
 
-
-# line_chart = TemplateView.as_view(template_name='line_chart.html')
-# line_chart_json = LineChartJSONView.as_view()
+line_chart = TemplateView.as_view(template_name='line_chart.html')
+line_chart_json = LineChartJSONView.as_view()
