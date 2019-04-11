@@ -20,7 +20,7 @@
             })
             .then(function(myJson) {
                 console.log(JSON.stringify(myJson));
-                var ctx = $("#myChart").get(0).getContext("2d");
+                const ctx = document.getElementById("myChart").getContext("2d")
                 new Chart(ctx, {
                     type: 'bar', data: myJson
                 });
