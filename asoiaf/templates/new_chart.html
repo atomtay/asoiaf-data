@@ -8,19 +8,20 @@
     </head>
     <body>
         <h1>Some Line Charts loaded in Ajax!</h1>
-
-        <canvas id="myChart" width="500" height="400" style="max-width: 500px;"></canvas>
+            {{input}}
+        <canvas id="linechart" width="500" height="400" style="max-width: 500px;"></canvas>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.2/Chart.min.js"></script>
         <script>
-            fetch('{% url "line_chart_json" %}')
+
+            fetch('{% url "new_chart_json" %}')
             .then(function(response) {
                 return response.json();
             })
             .then(function(myJson) {
                 console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("myChart").getContext("2d")
+                const ctx = document.getElementById("linechart").getContext("2d")
                 new Chart(ctx, {
-                    type: 'bar', data: myJson
+                    type: 'line', data: myJson
                 });
             });
         </script>
