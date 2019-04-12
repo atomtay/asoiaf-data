@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Book, Character, Chapter_of_Death, Book_of_Death, Death, Nobility
+# from .models import Book, Character, Chapter_of_Death, Book_of_Death, Death, Nobility
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView, HighchartPlotLineChartView
 from chartjs.views.pie import HighChartDonutView
