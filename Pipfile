@@ -11,6 +11,7 @@ django = "==2.2"
 gunicorn = "*"
 django-chartjs = "*"
 django-extensions = "*"
+whitenoise = "*"
 
 [requires]
 python_version = ">=3.5"
