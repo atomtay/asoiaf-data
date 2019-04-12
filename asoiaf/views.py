@@ -87,7 +87,7 @@ class NewLineChartJSONView(BaseLineChartView):
         return ["Deaths"]
 
     def get_providers(self):
-        return ["Nobility", "Commonfolk"]
+        return ["Nobility", "Smallfolk"]
 
     def get_data(self):
         with connection.cursor() as cursor:
@@ -98,9 +98,9 @@ class NewLineChartJSONView(BaseLineChartView):
                 "SELECT COUNT(asoiaf_death.name_id) FROM asoiaf_death INNER JOIN asoiaf_nobility ON asoiaf_death.name_id=asoiaf_nobility.name;")
             noble_deaths = cursor.fetchall()[0]
 
-            commonfolk_deaths = total_deaths[0] - noble_deaths[0]
+            smallfolk_deaths = total_deaths[0] - noble_deaths[0]
 
-        return [noble_deaths, [commonfolk_deaths]]
+        return [noble_deaths, [smallfolk_deaths]]
 
 
 overview_bar_chart_json = BarChartJSONView.as_view()
