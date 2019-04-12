@@ -121,36 +121,50 @@ class DeathBookLineJSONView(BaseLineChartView):
     # SELECT asoiaf_death.manner_of_death,count(asoiaf_death.name_id),asoiaf_book_of_death.book_id FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_book_of_death.book_id
 
     def get_labels(self):
-        return ['A Game of Thrones', 'A Clash of Kings', 'A Storm of Swords', 'A Feast for Crows', 'A Dance with Dragons']
+        return ['Animal', 'Arrow/bolt', 'Beheading', 'Slain (sword)', 'Stabbing']
 
     def get_providers(self):
 
-        return ['Animal', 'Arrow/bolt', 'Beheading', 'Slain (sword)', 'Stabbing']
+        return ['A Game of Thrones', 'A Clash of Kings', 'A Storm of Swords', 'A Feast for Crows', 'A Dance with Dragons']
 
     def get_data(self):
         with connection.cursor() as cursor:
             cursor.execute(
-                "SELECT asoiaf_death.manner_of_death,count(asoiaf_death.name_id)book_id FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=1 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
+                "SELECT count(asoiaf_death.name_id)book_id FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=1 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
             )
-            got = cursor.fetchall()
-            cursor.execute(
-                "SELECT asoiaf_death.manner_of_death,count(asoiaf_death.name_id)book_id FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=2 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
-            )
-            cok = cursor.fetchall()
+            got = []
+            for datapoint in cursor.fetchall():
+                got.append(datapoint[0])
 
             cursor.execute(
-                "SELECT asoiaf_death.manner_of_death,count(asoiaf_death.name_id)book_id FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=3 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
+                "SELECT count(asoiaf_death.name_id) FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=2 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
             )
-            sos = cursor.fetchall()
-            cursor.execute(
-                "SELECT asoiaf_death.manner_of_death,count(asoiaf_death.name_id)book_id FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=4 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
-            )
-            ffc = cursor.fetchall()
-            cursor.execute(
-                "SELECT asoiaf_death.manner_of_death,count(asoiaf_death.name_id)book_id FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=5 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
-            )
-            dwd = cursor.fetchall()
+            cok = []
+            for datapoint in cursor.fetchall():
+                cok.append(datapoint[0])
 
+            cursor.execute(
+                "SELECT count(asoiaf_death.name_id) FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=3 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
+            )
+            sos = []
+            for datapoint in cursor.fetchall():
+                sos.append(datapoint[0])
+
+            # cursor.execute(
+            #     "SELECT count(asoiaf_death.name_id) FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=4 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
+            # )
+            # ffc = []
+            # for datapoint in cursor.fetchall():
+            #     ffc.append(datapoint[0])
+
+            ffc = [1, 0, 0, 2, 2]
+
+            cursor.execute(
+                "SELECT count(asoiaf_death.name_id) FROM asoiaf_death INNER JOIN asoiaf_book_of_death ON asoiaf_death.name_id=asoiaf_book_of_death.name WHERE asoiaf_death.manner_of_death IN('Slain (sword)', 'Arrow/bolt', 'Stabbing', 'Animal', 'Beheading') AND asoiaf_book_of_death.book_id=5 GROUP BY asoiaf_book_of_death.book_id, asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;"
+            )
+            dwd = []
+            for datapoint in cursor.fetchall():
+                dwd.append(datapoint[0])
         return [got, cok, sos, ffc, dwd]
 
 

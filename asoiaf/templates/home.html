@@ -101,7 +101,7 @@
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.2/Chart.min.js"></script>
     
         <script>
-            {% comment %} fetch('{% url "overview_bar_chart_json" %}')
+            fetch('{% url "overview_bar_chart_json" %}')
             .then(function(response) {
                 return response.json();
             })
@@ -170,7 +170,7 @@
                             }
                         }
                       });
-                }); {% endcomment %}
+                });
 
                 fetch('{% url "death_by_book_json" %}')
                 .then(function(response) {
