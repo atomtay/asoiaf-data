@@ -9,13 +9,12 @@ home = TemplateView.as_view(template_name='home.html')
 
 class BarChartJSONView(BaseLineChartView):
     def get_labels(self):
-        return ["Total", "Alive", "Dead"]
+        return ["Alive", "Dead"]
 
     def get_providers(self):
         return ["Total", "Male", "Female"]
 
     def get_data(self):
-        chars_total = len(Character.objects.all())
         male_chars_total = len(Character.objects.filter(gender='Male'))
         female_chars_total = len(Character.objects.filter(gender='Female'))
 
@@ -28,17 +27,15 @@ class BarChartJSONView(BaseLineChartView):
                 "SELECT name from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name = asoiaf_death.name_id WHERE gender = 'Female'")
             femalerow = len(cursor.fetchall())
 
-        dead_chars_total = len(Death.objects.all())
         dead_male_chars = malerow
         dead_female_chars = femalerow
 
-        alive_chars_total = chars_total - dead_chars_total
         alive_male_chars = male_chars_total - dead_male_chars
         alive_female_chars = female_chars_total - dead_female_chars
 
-        return [[chars_total, alive_chars_total, dead_chars_total],
-                [male_chars_total, alive_male_chars, dead_male_chars],
-                [female_chars_total, alive_female_chars, dead_female_chars]]
+        return [
+            [male_chars_total, alive_male_chars, dead_male_chars],
+            [female_chars_total, alive_female_chars, dead_female_chars]]
 
 
 class LineChartJSONView(BaseLineChartView):
@@ -74,16 +71,17 @@ class LineChartJSONView(BaseLineChartView):
 
 class DoughnutGraphJSONView(BaseLineChartView):
     def get_labels(self):
-        with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT asoiaf_death.manner_of_death, COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death.\"manner_of_death\" <> 'Unknown' AND asoiaf_character.\"gender\"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;")
-            male_death_types = []
-            for type in cursor.fetchall():
-                male_death_types.append(male_death_types[0])
-            return male_death_types
+        # with connection.cursor() as cursor:
+        #     cursor.execute(
+        #         "SELECT asoiaf_death.manner_of_death, COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death.\"manner_of_death\" <> 'Unknown' AND asoiaf_character.\"gender\"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;")
+        #     male_death_types = []
+        #     for type in cursor.fetchall():
+        #         male_death_types.append(male_death_types)
+        #     return male_death_types
+        return [4, 6, 3, 6]
 
     def get_providers(self):
-        return ["Manner of Death"]
+        return [4, 6, 3, 6]
 
     def get_data(self):
         return [4, 6, 3, 6]

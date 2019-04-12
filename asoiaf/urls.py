@@ -6,9 +6,9 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.home),
-    url(r'^overview_bar_chart/json/$',
-        views.overview_bar_chart_json, name='overview_bar_chart_json'),
+    path('', views.home, name="home"),
+    url(r'^overview_bar_chart/json/$', views.overview_bar_chart_json,
+        name='overview_bar_chart_json'),
     url(r'^chapter_line_chart/json/$', views.chapter_line_chart_json,
         name='chapter_line_chart_json'),
     url(r'^deaths_doughnut_graph/json/$', views.deaths_doughnut_graph_json,

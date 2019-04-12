@@ -5,14 +5,23 @@
         <!--[if lte IE 8]>
             <script src="{% static 'js/excanvas.js' %}"></script>
         <![endif]-->
+        <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'admin/css/asoiaf.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
     </head>
     <body>
-        <h1>A Data Analysis of Thrones</h1>
-
-        <canvas id="barchart" width="500" height="400" style="max-width: 500px;"></canvas>
-        <canvas id="linechart" width="500" height="400" style="max-width: 500px;"></canvas>
-        <canvas id="bargraph"></canvas>
-
+        <header>
+            <h1>A Death by the Data</h1>
+            <div class="fade"></div>
+            <img src="https://cmzone-vzbqbxhynotw9ion96xv.netdna-ssl.com/wp-content/uploads/2017/07/Game-of-Thrones-season-8-wallpaper.jpg" class="head-image">
+        </header>
+        <main>
+            <h2>Mortality by Gender: An Overview</h2>
+            <canvas id="barchart"></canvas>
+            <h2>Death as a Literary Trope</h2>
+            <canvas id="linechart"></canvas>
+            {% comment %} <canvas id="bargraph" style="max-width: 500px;"></canvas> {% endcomment %}
+        </main>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.2/Chart.min.js"></script>
         <script>
             fetch('{% url "overview_bar_chart_json" %}')
@@ -39,17 +48,19 @@
                 });
             });
 
-            fetch('{% url "deaths_doughnut_graph_json" %}')
+            {% comment %} fetch('{% url "deaths_doughnut_graph_json" %}')
             .then(function(response) {
                 return response.json();
             })
             .then(function(myJson) {
                 console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("doughnutgraph").getContext("2d")
+                const ctx = document.getElementById("bargraph").getContext("2d")
                 new Chart(ctx, {
-                    type: 'doughnut', data: myJson
+                    type: 'doughnut', data: myJson,
+                    options: {
+
                 });
-            });          
+            });           {% endcomment %}
         </script>
     </body>
 </html>
