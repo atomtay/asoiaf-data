@@ -11,7 +11,7 @@ urlpatterns = [
         name='overview_bar_chart_json'),
     url(r'^chapter_line_chart/json/$', views.chapter_line_chart_json,
         name='chapter_line_chart_json'),
-    url(r'^deaths_doughnut_graph/json/$', views.deaths_doughnut_graph_json,
-        name='deaths_doughnut_graph_json')
+    url(r'^new_chart/json/$', views.new_line_json,
+        name='new_line_json'),
 
 ]

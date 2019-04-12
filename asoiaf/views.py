@@ -1,41 +1,54 @@
 from django.shortcuts import render
 from .models import Book, Character, Chapter_of_Death, Book_of_Death, Death, Nobility
 from django.views.generic import TemplateView
-from chartjs.views.lines import BaseLineChartView
+from chartjs.views.lines import BaseLineChartView, HighchartPlotLineChartView
+from chartjs.views.pie import HighChartDonutView
 from django.db import connection
 
 home = TemplateView.as_view(template_name='home.html')
 
 
 class BarChartJSONView(BaseLineChartView):
+
     def get_labels(self):
-        return ["Alive", "Dead"]
+        return ["Total", "Alive", "Dead"]
 
     def get_providers(self):
-        return ["Total", "Male", "Female"]
+        return ["Male", "Female"]
 
     def get_data(self):
-        male_chars_total = len(Character.objects.filter(gender='Male'))
-        female_chars_total = len(Character.objects.filter(gender='Female'))
-
         with connection.cursor() as cursor:
             cursor.execute(
-                "SELECT name from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name = asoiaf_death.name_id WHERE gender = 'Male'")
-            malerow = len(cursor.fetchall())
+                "SELECT count(name) from asoiaf_character WHERE \"gender\"='Male';"
+            )
+            total_males = cursor.fetchone()
 
             cursor.execute(
-                "SELECT name from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name = asoiaf_death.name_id WHERE gender = 'Female'")
-            femalerow = len(cursor.fetchall())
+                "SELECT count(name) from asoiaf_character WHERE \"gender\"='Female';"
+            )
+            total_females = cursor.fetchone()
+            cursor.execute(
+                "SELECT count(name) from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name=asoiaf_death.name_id WHERE asoiaf_character.\"gender\" = 'Male';")
+            male_deaths = cursor.fetchone()
 
-        dead_male_chars = malerow
-        dead_female_chars = femalerow
+            cursor.execute("SELECT count(name) from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name=asoiaf_death.name_id WHERE asoiaf_character.\"gender\"=\'Female\';"
+                           )
 
-        alive_male_chars = male_chars_total - dead_male_chars
-        alive_female_chars = female_chars_total - dead_female_chars
+            female_deaths = cursor.fetchone()
 
-        return [
-            [male_chars_total, alive_male_chars, dead_male_chars],
-            [female_chars_total, alive_female_chars, dead_female_chars]]
+            alive_males = total_males[0]-male_deaths[0]
+            alive_females = total_females[0]-female_deaths[0]
+
+        return [[total_males[0], alive_males, male_deaths[0]], [total_females[0], alive_females, female_deaths[0]]]
+
+        # dead_male_chars = malerow
+        # dead_female_chars = femalerow
+
+        # alive_male_chars = male_chars_total - dead_male_chars
+        # alive_female_chars = female_chars_total - dead_female_chars
+
+        # return [[male_chars_total, alive_male_chars, dead_male_chars],
+        #         [female_chars_total, alive_female_chars, dead_female_chars]]
 
 
 class LineChartJSONView(BaseLineChartView):
@@ -43,7 +56,7 @@ class LineChartJSONView(BaseLineChartView):
         return ["A Game of Thrones", "A Clash of Kings", "A Storm of Swords", "A Feast for Crows", "A Dance with Dragons"]
 
     def get_providers(self):
-        return ["Male", "Female", "Total Chapter"]
+        return ["Number of chapters", "Average chapter of male death", "Average chapter of female death"]
 
     def get_data(self):
         with connection.cursor() as cursor:
@@ -64,43 +77,32 @@ class LineChartJSONView(BaseLineChartView):
             male_chapter_list = []
             for chapter in cursor.fetchall():
                 male_chapter_list.append(chapter[0])
-        return [male_chapter_list,
-                female_chapter_list,
-                chapter_list]
+        return [chapter_list,
+                male_chapter_list,
+                female_chapter_list]
 
 
-class DoughnutGraphJSONView(BaseLineChartView):
+class NewLineChartJSONView(BaseLineChartView):
     def get_labels(self):
-        # with connection.cursor() as cursor:
-        #     cursor.execute(
-        #         "SELECT asoiaf_death.manner_of_death, COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death.\"manner_of_death\" <> 'Unknown' AND asoiaf_character.\"gender\"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;")
-        #     male_death_types = []
-        #     for type in cursor.fetchall():
-        #         male_death_types.append(male_death_types)
-        #     return male_death_types
-        return [4, 6, 3, 6]
+        return ["Deaths"]
 
     def get_providers(self):
-        return [4, 6, 3, 6]
+        return ["Nobility", "Commonfolk"]
 
     def get_data(self):
-        return [4, 6, 3, 6]
-        # All manners and total count
-        # SELECT asoiaf_death.manner_of_death,COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT COUNT(name_id) FROM asoiaf_death;")
+            total_deaths = cursor.fetchall()[0]
 
-        # Male death counts
-        # SELECT asoiaf_death.manner_of_death,COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+            cursor.execute(
+                "SELECT COUNT(asoiaf_death.name_id) FROM asoiaf_death INNER JOIN asoiaf_nobility ON asoiaf_death.name_id=asoiaf_nobility.name;")
+            noble_deaths = cursor.fetchall()[0]
 
-        # Male death categories
-        # SELECT asoiaf_death.manner_of_death FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Male' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+            commonfolk_deaths = total_deaths[0] - noble_deaths[0]
 
-        # Female death counts
-        # SELECT asoiaf_death.manner_of_death,COUNT(asoiaf_character.gender) FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Female' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
-
-        # Female death categories
-        # SELECT asoiaf_death.manner_of_death FROM asoiaf_death INNER JOIN asoiaf_character ON asoiaf_death.name_id=asoiaf_character.name WHERE asoiaf_death."manner_of_death" <> 'Unknown' AND asoiaf_character."gender"='Female' GROUP BY asoiaf_death.manner_of_death ORDER BY asoiaf_death.manner_of_death ASC;
+        return [noble_deaths, [commonfolk_deaths]]
 
 
 overview_bar_chart_json = BarChartJSONView.as_view()
 chapter_line_chart_json = LineChartJSONView.as_view()
-deaths_doughnut_graph_json = DoughnutGraphJSONView.as_view()
+new_line_json = NewLineChartJSONView.as_view()

@@ -17,12 +17,52 @@
         </header>
         <main>
             <h2>Mortality by Gender: An Overview</h2>
-            <canvas id="barchart"></canvas>
+            <table>
+                <tr>
+                    <td>
+                        <canvas id="barchart" style="max-width:600px;"></canvas>
+                    </td>
+
+                    <td>
+                        <p>Women make up for just under 18% of all named characters, but only 11% of listed deaths.</p>
+
+                    </td>
+                </tr>
+            </table>
+            
             <h2>Death as a Literary Trope</h2>
-            <canvas id="linechart"></canvas>
-            {% comment %} <canvas id="bargraph" style="max-width: 500px;"></canvas> {% endcomment %}
+            <table>
+                <tr>
+                    <td>
+                        <canvas id="linechart"></canvas>
+                    </td>
+
+                    <td>
+                        <p>Small sample size notwithstanding (is <i>The Winds of Winter</i> ever actually coming out?), so far it looks like women are more likely to die towards the end of the novels than men. On the other hand, the average chapter for a male character's death seems to be closer to the midpoint of each book.</p>
+
+                    </td>
+                </tr>
+            </table>
+        
+            <h2>Test</h2>
+
+            <table>
+                <tr>
+                    <td>
+                        <canvas id="linechart2"></canvas>
+                    </td>
+
+                    <td>
+                        <p>“The common people pray for rain, healthy children, and a summer that never ends," Ser Jorah told her. "It is no matter to them if the high lords play their game of thrones, so long as they are left in peace." He gave a shrug. "They never are.”</p>
+
+                    </td>
+                </tr>
+            </table>
+        
+        
         </main>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.2/Chart.min.js"></script>
+    
         <script>
             fetch('{% url "overview_bar_chart_json" %}')
             .then(function(response) {
@@ -32,7 +72,8 @@
                 console.log(JSON.stringify(myJson));
                 const ctx = document.getElementById("barchart").getContext("2d")
                 new Chart(ctx, {
-                    type: 'bar', data: myJson
+                    type: 'bar',
+                    data: myJson
                 });
             });
 
@@ -48,19 +89,29 @@
                 });
             });
 
-            {% comment %} fetch('{% url "deaths_doughnut_graph_json" %}')
+            fetch('{% url "new_line_json" %}')
             .then(function(response) {
                 return response.json();
             })
             .then(function(myJson) {
                 console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("bargraph").getContext("2d")
+                const ctx = document.getElementById("linechart2").getContext("2d")
                 new Chart(ctx, {
-                    type: 'doughnut', data: myJson,
-                    options: {
-
+                    type: 'bar', data: myJson, options:{
+                   scales: {
+                       xAxes: [{
+                           display:true
+                              }],
+                       yAxes: [{
+                           ticks: {
+                               beginAtZero:true
+                                   }
+                               }]
+                            }
+                        }
+                      });
                 });
-            });           {% endcomment %}
+            
         </script>
     </body>
 </html>
