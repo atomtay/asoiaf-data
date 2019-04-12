@@ -16,7 +16,7 @@
             <img src="https://cmzone-vzbqbxhynotw9ion96xv.netdna-ssl.com/wp-content/uploads/2017/07/Game-of-Thrones-season-8-wallpaper.jpg" class="head-image" style="width:100%;">
         </header>
         <main>
-            <h2>Mortality by Gender: An Overview</h2>
+            <h2>Mortality by gender: an overview</h2>
             <table>
                 <tr>
                     <td>
@@ -31,7 +31,7 @@
                 </tr>
             </table>
             
-            <h2>Death as a Literary Trope</h2>
+            <h2>Death as a literary trope</h2>
             <table>
                 <tr>
                     <td>
@@ -66,7 +66,7 @@
                 </tr>
             </table>
 
-            <h2>Manner of death</h2>
+            <h2>By combat or betrayal: manner of death</h2>
             <table>
                 <tr>
                     <td>
@@ -74,19 +74,34 @@
                     </td>
 
                     <td>
-                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">“'Why is it always the innocents who suffer most, when you high lords play your game of thrones?'”
+                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">"'The man who passes the sentence should swing the sword.'"
+                        </blockquote>
+
+                    </td>
+                </tr>
+            </table>
+
+            <h2>Death throughout the books</h2>
+            <table>
+                <tr>
+                    <td>
+                        <canvas id="bookdeath"></canvas>
+                    </td>
+
+                    <td>
+                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">"Leave one wolf alive and the hseep are never safe."
                         </blockquote>
 
                     </td>
                 </tr>
             </table>
         
-        
+        {% comment %} Leave one wolf alive and the sheep are never safe. {% endcomment %}
         </main>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.2/Chart.min.js"></script>
     
         <script>
-            fetch('{% url "overview_bar_chart_json" %}')
+            {% comment %} fetch('{% url "overview_bar_chart_json" %}')
             .then(function(response) {
                 return response.json();
             })
@@ -155,9 +170,19 @@
                             }
                         }
                       });
+                }); {% endcomment %}
+
+                fetch('{% url "death_by_book_json" %}')
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(myJson) {
+                    console.log(JSON.stringify(myJson));
+                    const ctx = document.getElementById("bookdeath").getContext("2d")
+                    new Chart(ctx, {
+                        type: 'line', data: myJson
+                    });
                 });
-
-
 
             
         
