@@ -41,15 +41,6 @@ class BarChartJSONView(BaseLineChartView):
 
         return [[total_males[0], alive_males, male_deaths[0]], [total_females[0], alive_females, female_deaths[0]]]
 
-        # dead_male_chars = malerow
-        # dead_female_chars = femalerow
-
-        # alive_male_chars = male_chars_total - dead_male_chars
-        # alive_female_chars = female_chars_total - dead_female_chars
-
-        # return [[male_chars_total, alive_male_chars, dead_male_chars],
-        #         [female_chars_total, alive_female_chars, dead_female_chars]]
-
 
 class LineChartJSONView(BaseLineChartView):
     def get_labels(self):
@@ -103,6 +94,29 @@ class NewLineChartJSONView(BaseLineChartView):
         return [noble_deaths, [smallfolk_deaths]]
 
 
+class DeathLineJSONView(BaseLineChartView):
+    # SELECT manner_of_death,count(name_id) FROM asoiaf_death WHERE manner_of_death <> 'Unknown' GROUP BY manner_of_death ORDER BY count(name_id) DESC;
+    def get_labels(self):
+        return ['Manner of Death']
+
+    def get_providers(self):
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT manner_of_death FROM asoiaf_death WHERE manner_of_death!='Unknown' GROUP BY manner_of_death ORDER BY count(name_id) DESC LIMIT 10;")
+            providers = cursor.fetchall()
+
+        return providers
+
+    def get_data(self):
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT count(name_id) FROM asoiaf_death WHERE manner_of_death!='Unknown' GROUP BY manner_of_death ORDER BY count(name_id) DESC LIMIT 10;")
+            data = cursor.fetchall()
+
+        return data
+
+
 overview_bar_chart_json = BarChartJSONView.as_view()
 chapter_line_chart_json = LineChartJSONView.as_view()
 new_line_json = NewLineChartJSONView.as_view()
+manner_of_death_line_chart_json = DeathLineJSONView.as_view()

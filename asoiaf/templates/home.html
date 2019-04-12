@@ -65,6 +65,21 @@
                     </td>
                 </tr>
             </table>
+
+            <h2>Manner of death</h2>
+            <table>
+                <tr>
+                    <td>
+                        <canvas id="mannerofdeath"></canvas>
+                    </td>
+
+                    <td>
+                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">“'Why is it always the innocents who suffer most, when you high lords play your game of thrones?'”
+                        </blockquote>
+
+                    </td>
+                </tr>
+            </table>
         
         
         </main>
@@ -96,6 +111,29 @@
                 });
             });
 
+            fetch('{% url "manner_of_death_line_chart_json" %}')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                console.log(JSON.stringify(myJson));
+                const ctx = document.getElementById("mannerofdeath").getContext("2d")
+                new Chart(ctx, {
+                    type: 'bar', data: myJson, options:{
+                   scales: {
+                       xAxes: [{
+                           display:true
+                              }],
+                       yAxes: [{
+                           ticks: {
+                               beginAtZero:true
+                                   }
+                               }]
+                            }
+                        }
+                      });
+            })
+
             fetch('{% url "new_line_json" %}')
             .then(function(response) {
                 return response.json();
@@ -118,7 +156,11 @@
                         }
                       });
                 });
+
+
+
             
+        
         </script>
     </body>
 </html>
