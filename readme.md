@@ -69,7 +69,7 @@ While the database itself is not publicly accessible, you can view my data in [G
 | 1            | 3                | 76               |
 | 3            | 1                | 63               |
 
-**Books** (The same as before)
+**Books** (no changes)
 | Book ID | Title                |
 |---------|----------------------|
 | 1       | A Game of Thrones    |
