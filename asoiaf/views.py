@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView, HighchartPlotLineChartView
 from chartjs.views.pie import HighChartDonutView
 from django.db import connection
-from .queries import MortalityByGender, LiteraryTrope, SocialClass
+from .queries import MortalityByGender, LiteraryTrope, SocialClass, MannerOfDeath
 
 
 class OverviewBarChartJSON(BaseLineChartView):
@@ -45,20 +45,10 @@ class DeathLineJSONView(BaseLineChartView):
         return ['Manner of Death']
 
     def get_providers(self):
-        with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT manner_of_death FROM asoiaf_death WHERE manner_of_death!='Unknown' GROUP BY manner_of_death ORDER BY count(name_id) DESC LIMIT 10;")
-            providers = cursor.fetchall()
-
-        return providers
+        return MannerOfDeath.get_providers(self)
 
     def get_data(self):
-        with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT count(name_id) FROM asoiaf_death WHERE manner_of_death!='Unknown' GROUP BY manner_of_death ORDER BY count(name_id) DESC LIMIT 10;")
-            data = cursor.fetchall()
-
-        return data
+        return MannerOfDeath.get_data(self)
 
 
 class DeathBookLineJSONView(BaseLineChartView):
@@ -117,6 +107,5 @@ home = TemplateView.as_view(template_name='home.html')
 overview_bar_chart_json = OverviewBarChartJSON.as_view()
 chapter_line_chart_json = LiteraryTropeLineChartJSON.as_view()
 social_class_line_chart_json = SocialClassBarChartJSON.as_view()
-# manner_of_death_line_chart_json = NewLineChartJSONView.as_view()
-# manner_of_death_line_chart_json = DeathLineJSONView.as_view()
+manner_of_death_line_chart_json = DeathLineJSONView.as_view()
 # death_by_book_json = DeathBookLineJSONView.as_view()

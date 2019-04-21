@@ -68,7 +68,7 @@
                     </td>
                 </tr>
             </table>
-        {% comment %}
+        
             <h2>By combat or betrayal: manner of death</h2>
             <table>
                 <tr>
@@ -85,7 +85,7 @@
                     </td>
                 </tr>
             </table>
-
+            {% comment %}
             <h2>Death throughout the series</h2>
             <table>
                 <tr>
@@ -156,14 +156,14 @@
                         }
                       });
             })
-{% comment %} 
-            fetch('{% url "new_line_json" %}')
+
+            fetch('{% url "manner_of_death_line_chart_json" %}')
             .then(function(response) {
                 return response.json();
             })
             .then(function(myJson) {
                 console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("linechart2").getContext("2d")
+                const ctx = document.getElementById("mannerofdeath").getContext("2d")
                 new Chart(ctx, {
                     type: 'bar', data: myJson, options:{
                    scales: {
@@ -179,7 +179,8 @@
                         }
                       });
                 });
-
+                
+                {% comment %} 
                 fetch('{% url "death_by_book_json" %}')
                 .then(function(response) {
                     return response.json();
