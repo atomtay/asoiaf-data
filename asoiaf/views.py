@@ -1,15 +1,12 @@
 from django.shortcuts import render
-# from .models import Book, Character, Chapter_of_Death, Book_of_Death, Death, Nobility
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView, HighchartPlotLineChartView
 from chartjs.views.pie import HighChartDonutView
 from django.db import connection
-
-home = TemplateView.as_view(template_name='home.html')
+from .queries import MortalityByGender
 
 
 class BarChartJSONView(BaseLineChartView):
-
     def get_labels(self):
         return ["Total", "Alive", "Dead"]
 
@@ -17,29 +14,7 @@ class BarChartJSONView(BaseLineChartView):
         return ["Male", "Female"]
 
     def get_data(self):
-        with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT count(name) from asoiaf_character WHERE \"gender\"='Male';"
-            )
-            total_males = cursor.fetchone()
-
-            cursor.execute(
-                "SELECT count(name) from asoiaf_character WHERE \"gender\"='Female';"
-            )
-            total_females = cursor.fetchone()
-            cursor.execute(
-                "SELECT count(name) from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name=asoiaf_death.name_id WHERE asoiaf_character.\"gender\" = 'Male';")
-            male_deaths = cursor.fetchone()
-
-            cursor.execute("SELECT count(name) from asoiaf_character INNER JOIN asoiaf_death ON asoiaf_character.name=asoiaf_death.name_id WHERE asoiaf_character.\"gender\"=\'Female\';"
-                           )
-
-            female_deaths = cursor.fetchone()
-
-            alive_males = total_males[0]-male_deaths[0]
-            alive_females = total_females[0]-female_deaths[0]
-
-        return [[total_males[0], alive_males, male_deaths[0]], [total_females[0], alive_females, female_deaths[0]]]
+        return MortalityByGender.get_data(self)
 
 
 class LineChartJSONView(BaseLineChartView):
@@ -168,6 +143,7 @@ class DeathBookLineJSONView(BaseLineChartView):
         return [got, cok, sos, ffc, dwd]
 
 
+home = TemplateView.as_view(template_name='home.html')
 overview_bar_chart_json = BarChartJSONView.as_view()
 chapter_line_chart_json = LineChartJSONView.as_view()
 new_line_json = NewLineChartJSONView.as_view()
