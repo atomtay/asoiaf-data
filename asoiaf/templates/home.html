@@ -31,7 +31,7 @@
                 </tr>
             </table>
             
-            {% comment %} <h2>Death as a literary trope</h2>
+            <h2>Death as a literary trope</h2>
             <table>
                 <tr>
                     <td>
@@ -50,6 +50,7 @@
                 </tr>
             </table>
         
+        {% comment %}
             <h2>Who <i>really</i> plays the game?</h2>
 
             <table>
@@ -121,7 +122,7 @@
                     data: myJson
                 });
             });
-{% comment %} 
+
             fetch('{% url "chapter_line_chart_json" %}')
             .then(function(response) {
                 return response.json();
@@ -133,7 +134,7 @@
                     type: 'line', data: myJson
                 });
             });
-
+{% comment %} 
             fetch('{% url "manner_of_death_line_chart_json" %}')
             .then(function(response) {
                 return response.json();

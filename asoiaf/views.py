@@ -3,10 +3,10 @@ from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView, HighchartPlotLineChartView
 from chartjs.views.pie import HighChartDonutView
 from django.db import connection
-from .queries import MortalityByGender
+from .queries import MortalityByGender, LiteraryTrope
 
 
-class BarChartJSONView(BaseLineChartView):
+class OverviewBarChartJSON(BaseLineChartView):
     def get_labels(self):
         return ["Total", "Alive", "Dead"]
 
@@ -17,7 +17,7 @@ class BarChartJSONView(BaseLineChartView):
         return MortalityByGender.get_data(self)
 
 
-class LineChartJSONView(BaseLineChartView):
+class LiteraryTropeLineChartJSON(BaseLineChartView):
     def get_labels(self):
         return ["A Game of Thrones", "A Clash of Kings", "A Storm of Swords", "A Feast for Crows", "A Dance with Dragons"]
 
@@ -25,27 +25,7 @@ class LineChartJSONView(BaseLineChartView):
         return ["Number of chapters", "Average chapter of male death", "Average chapter of female death"]
 
     def get_data(self):
-        with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT num_of_chapters FROM asoiaf_book;")
-            chapter_list = []
-            for chapter in cursor.fetchall():
-                chapter_list.append(chapter[0])
-
-            cursor.execute("SELECT ROUND(AVG(asoiaf_chapter_of_death.chapter)) FROM asoiaf_character INNER JOIN asoiaf_chapter_of_death ON asoiaf_character.name=asoiaf_chapter_of_death.name INNER JOIN asoiaf_book_of_death ON asoiaf_character.name=asoiaf_book_of_death.name INNER JOIN asoiaf_book ON asoiaf_book.book_id=asoiaf_book_of_death.book_id WHERE asoiaf_character.\"gender\"=\'Female\' GROUP BY asoiaf_book.book_id ORDER BY asoiaf_book.book_id;")
-
-            female_chapter_list = []
-            for chapter in cursor.fetchall():
-                female_chapter_list.append(chapter[0])
-
-            cursor.execute("SELECT ROUND(AVG(asoiaf_chapter_of_death.chapter)) FROM asoiaf_character INNER JOIN asoiaf_chapter_of_death ON asoiaf_character.name=asoiaf_chapter_of_death.name INNER JOIN asoiaf_book_of_death ON asoiaf_character.name=asoiaf_book_of_death.name INNER JOIN asoiaf_book ON asoiaf_book.book_id=asoiaf_book_of_death.book_id WHERE asoiaf_character.\"gender\"=\'Male\' GROUP BY asoiaf_book.book_id ORDER BY asoiaf_book.book_id;")
-
-            male_chapter_list = []
-            for chapter in cursor.fetchall():
-                male_chapter_list.append(chapter[0])
-        return [chapter_list,
-                male_chapter_list,
-                female_chapter_list]
+        return LiteraryTrope.get_data(self)
 
 
 class NewLineChartJSONView(BaseLineChartView):
@@ -144,8 +124,8 @@ class DeathBookLineJSONView(BaseLineChartView):
 
 
 home = TemplateView.as_view(template_name='home.html')
-overview_bar_chart_json = BarChartJSONView.as_view()
-chapter_line_chart_json = LineChartJSONView.as_view()
+overview_bar_chart_json = OverviewBarChartJSON.as_view()
+chapter_line_chart_json = LiteraryTropeLineChartJSON.as_view()
 new_line_json = NewLineChartJSONView.as_view()
 manner_of_death_line_chart_json = DeathLineJSONView.as_view()
 death_by_book_json = DeathBookLineJSONView.as_view()
