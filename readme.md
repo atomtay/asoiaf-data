@@ -29,6 +29,7 @@ While the database itself is not publicly accessible, you can view my data in [G
 
 ### Second Normal Form
 **Characters**
+
 | Character ID | Name             | Gender |
 |--------------|------------------|--------|
 | 1            | Dalla            | Female |
@@ -36,6 +37,7 @@ While the database itself is not publicly accessible, you can view my data in [G
 | 3            | Torrhen Karstark | Male   |
 
 **Books**
+
 | Book ID | Title                |
 |---------|----------------------|
 | 1       | A Game of Thrones    |
@@ -45,18 +47,21 @@ While the database itself is not publicly accessible, you can view my data in [G
 | 5       | A Dance with Dragons |
 
 **Nobility**
+
 | Character ID | House    |
 |--------------|----------|
 | 2            | Stark    |
 | 3            | Karstark |
 
 **Manner of Death**
+
 | Character ID | Manner of Death |
 |--------------|-----------------|
 | 1            | Childbirth      |
 | 3            | Asphyxiation    |
 
 **Book/Chapter of Death**
+
 | Character ID | Book of Death ID | Chapter of Death |
 |--------------|------------------|------------------|
 | 1            | 3                | 76               |
@@ -64,12 +69,14 @@ While the database itself is not publicly accessible, you can view my data in [G
 
 ### Third Normal Form
 **Characters** (no changes)
+
 | Character ID | Book of Death ID | Chapter of Death |
 |--------------|------------------|------------------|
 | 1            | 3                | 76               |
 | 3            | 1                | 63               |
 
 **Books** (no changes)
+
 | Book ID | Title                |
 |---------|----------------------|
 | 1       | A Game of Thrones    |
@@ -79,24 +86,28 @@ While the database itself is not publicly accessible, you can view my data in [G
 | 5       | A Dance with Dragons |
 
 **Nobility** (no changes)
+
 | Character ID | House    |
 |--------------|----------|
 | 2            | Stark    |
 | 3            | Karstark |
 
 **Manner of Death** (no changes)
+
 | Character ID | Manner of Death |
 |--------------|-----------------|
 | 1            | Childbirth      |
 | 3            | Asphyxiation    |
 
 **Book of Death**
+
 | Character ID | Book of Death ID |
 |--------------|------------------|
 | 1            | 3                |
 | 3            | 1                |
 
 **Chapter of Death**
+
 | Character ID | Chapter of Death |
 |--------------|------------------|
 | 1            | 76               |
