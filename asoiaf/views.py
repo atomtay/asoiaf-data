@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView, HighchartPlotLineChartView
 from chartjs.views.pie import HighChartDonutView
 from django.db import connection
-from .queries import MortalityByGender, LiteraryTrope
+from .queries import MortalityByGender, LiteraryTrope, SocialClass
 
 
 class OverviewBarChartJSON(BaseLineChartView):
@@ -28,7 +28,7 @@ class LiteraryTropeLineChartJSON(BaseLineChartView):
         return LiteraryTrope.get_data(self)
 
 
-class NewLineChartJSONView(BaseLineChartView):
+class SocialClassBarChartJSON(BaseLineChartView):
     def get_labels(self):
         return ["Deaths"]
 
@@ -36,17 +36,7 @@ class NewLineChartJSONView(BaseLineChartView):
         return ["Nobility", "Smallfolk"]
 
     def get_data(self):
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT COUNT(name_id) FROM asoiaf_death;")
-            total_deaths = cursor.fetchall()[0]
-
-            cursor.execute(
-                "SELECT COUNT(asoiaf_death.name_id) FROM asoiaf_death INNER JOIN asoiaf_nobility ON asoiaf_death.name_id=asoiaf_nobility.name;")
-            noble_deaths = cursor.fetchall()[0]
-
-            smallfolk_deaths = total_deaths[0] - noble_deaths[0]
-
-        return [noble_deaths, [smallfolk_deaths]]
+        return SocialClass.get_data(self)
 
 
 class DeathLineJSONView(BaseLineChartView):
@@ -126,6 +116,7 @@ class DeathBookLineJSONView(BaseLineChartView):
 home = TemplateView.as_view(template_name='home.html')
 overview_bar_chart_json = OverviewBarChartJSON.as_view()
 chapter_line_chart_json = LiteraryTropeLineChartJSON.as_view()
-new_line_json = NewLineChartJSONView.as_view()
-manner_of_death_line_chart_json = DeathLineJSONView.as_view()
-death_by_book_json = DeathBookLineJSONView.as_view()
+social_class_line_chart_json = SocialClassBarChartJSON.as_view()
+# manner_of_death_line_chart_json = NewLineChartJSONView.as_view()
+# manner_of_death_line_chart_json = DeathLineJSONView.as_view()
+# death_by_book_json = DeathBookLineJSONView.as_view()

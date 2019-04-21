@@ -20,7 +20,7 @@
             <table>
                 <tr>
                     <td>
-                        <canvas id="barchart" style="max-width:600px;"></canvas>
+                        <canvas id="gender" style="max-width:600px;"></canvas>
                     </td>
                     <td>
                         <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">"She would die as she had lived, with an ax in her hand and a laugh upon her lips."
@@ -35,7 +35,7 @@
             <table>
                 <tr>
                     <td>
-                        <canvas id="linechart"></canvas>
+                        <canvas id="series"></canvas>
                     </td>
 
                     <td>
@@ -50,13 +50,12 @@
                 </tr>
             </table>
         
-        {% comment %}
             <h2>Who <i>really</i> plays the game?</h2>
 
             <table>
                 <tr>
                     <td>
-                        <canvas id="linechart2"></canvas>
+                        <canvas id="socialclass"></canvas>
                     </td>
 
                     <td>
@@ -69,7 +68,7 @@
                     </td>
                 </tr>
             </table>
-
+        {% comment %}
             <h2>By combat or betrayal: manner of death</h2>
             <table>
                 <tr>
@@ -116,7 +115,7 @@
             })
             .then(function(myJson) {
                 console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("barchart").getContext("2d")
+                const ctx = document.getElementById("gender").getContext("2d")
                 new Chart(ctx, {
                     type: 'bar',
                     data: myJson
@@ -129,19 +128,19 @@
             })
             .then(function(myJson) {
                 console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("linechart").getContext("2d")
+                const ctx = document.getElementById("series").getContext("2d")
                 new Chart(ctx, {
                     type: 'line', data: myJson
                 });
             });
-{% comment %} 
-            fetch('{% url "manner_of_death_line_chart_json" %}')
+
+            fetch('{% url "social_class_line_chart_json" %}')
             .then(function(response) {
                 return response.json();
             })
             .then(function(myJson) {
                 console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("mannerofdeath").getContext("2d")
+                const ctx = document.getElementById("socialclass").getContext("2d")
                 new Chart(ctx, {
                     type: 'bar', data: myJson, options:{
                    scales: {
@@ -157,7 +156,7 @@
                         }
                       });
             })
-
+{% comment %} 
             fetch('{% url "new_line_json" %}')
             .then(function(response) {
                 return response.json();
