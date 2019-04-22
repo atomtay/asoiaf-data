@@ -15,8 +15,8 @@ urlpatterns = [
         name='social_class_line_chart_json'),
     url(r'^manner_of_death_chart/json/$', views.manner_of_death_line_chart_json,
         name='manner_of_death_line_chart_json'),
-    # url(r'^book_death_chart/json/$', views.death_by_book_json,
-    #     name='death_by_book_json'),
+    url(r'^death_by_book/json/$', views.death_by_book_json,
+        name='death_by_book_json'),
 
 
 ]

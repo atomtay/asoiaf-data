@@ -6,27 +6,27 @@
             <script src="{% static 'js/excanvas.js' %}"></script>
         <![endif]-->
         <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
-        <link rel="stylesheet" href="{% static 'admin/css/asoiaf.css' %}">
+        <link rel="stylesheet" href="{% static 'css/asoiaf.css' %}">
         <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
     </head>
     <body>
         <header>
             <h1>A Death by the Data</h1>
             <div class="fade"></div>
-            <img src="https://cmzone-vzbqbxhynotw9ion96xv.netdna-ssl.com/wp-content/uploads/2017/07/Game-of-Thrones-season-8-wallpaper.jpg" class="head-image" style="width:100%;">
+            <img src="https://cmzone-vzbqbxhynotw9ion96xv.netdna-ssl.com/wp-content/uploads/2017/07/Game-of-Thrones-season-8-wallpaper.jpg" class="head-image">
         </header>
         <main>
             <h2>Mortality by gender: an overview</h2>
             <table>
                 <tr>
                     <td>
-                        <canvas id="gender" style="max-width:600px;"></canvas>
+                        <canvas id="gender"></canvas>
                     </td>
                     <td>
-                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">"She would die as she had lived, with an ax in her hand and a laugh upon her lips."
+                        <blockquote>"She would die as she had lived, with an ax in her hand and a laugh upon her lips."
                         </blockquote>
-                        <p style="font-size:16px;">Women make up for just under 18% of all named characters, but only 11% of listed deaths. Similar stats follow for chance of death: given these numbers, a named female character has a 1 in 5 chance of dying in the series, but a named male character has a little over a 1 in 3 chance.</p>
-                        <p style="font-size:16px;">That said, there are significantly fewer female characters in this series, and this dataset only considers named characters (including one-off characters like Maerie Goodwife). Given how many presumably-male characters are slain in battle, these numbers are fairly conservative in the grand scheme.</p>
+                        <p>Women make up for just under 18% of all named characters, but only 11% of listed deaths. Similar stats follow for chance of death: given these numbers, a named female character has a 1 in 5 chance of dying in the series, but a named male character has a little over a 1 in 3 chance.</p>
+                        <p>That said, there are significantly fewer female characters in this series, and this dataset only considers named characters (including one-off characters like Maerie Goodwife). Given how many presumably-male characters are slain in battle, these numbers are fairly conservative in the grand scheme.</p>
                     </td>
                 </tr>
             </table>
@@ -39,12 +39,12 @@
                     </td>
 
                     <td>
-                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">“'You're mine,' she whispered. 'Mine, as I'm yours. And if we die, we die. All men must die, Jon Snow. But first, we'll live.'”
+                        <blockquote>“'You're mine,' she whispered. 'Mine, as I'm yours. And if we die, we die. All men must die, Jon Snow. But first, we'll live.'”
                             </blockquote>
                        
-                        <p style="font-size:16px;">Small sample size notwithstanding (is <i>The Winds of Winter</i> ever actually coming out?), so far it looks like women are more likely to die towards the end of the novels than men. On the other hand, the average chapter for a male character's death seems to be closer to the midpoint of each book.</p>
+                        <p>Small sample size notwithstanding (is <i>The Winds of Winter</i> ever actually coming out?), so far it looks like women are more likely to die towards the end of the novels than men. On the other hand, the average chapter for a male character's death seems to be closer to the midpoint of each book.</p>
 
-                        <p style="font-size:16px;">Granted, this all goes out the window in <i>A Clash of Kings</i>. I'd wager two silver stags that GRRM realized that maybe "The War of the Five Kings" included a few too many kings and quickly weeded out some of the stragglers.</p>
+                        <p>Granted, this all goes out the window in <i>A Clash of Kings</i>. I'd wager two silver stags that GRRM realized that maybe "The War of the Five Kings" included a few too many kings and quickly weeded out some of the stragglers.</p>
 
                     </td>
                 </tr>
@@ -59,12 +59,12 @@
                     </td>
 
                     <td>
-                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">“'Why is it always the innocents who suffer most, when you high lords play your game of thrones?'”
+                        <blockquote>“'Why is it always the innocents who suffer most, when you high lords play your game of thrones?'”
                         </blockquote>
 
-                        <p style="font-size:16px;">Here, I define nobility as any character with a legitimized claim to a house's banners. This admittedly does not capture the intricacies of Westerosi power dynamics: when the Starks rally the banners of the North, the Cassels must answer. Even with this loose definition of "nobility," deaths of named smallfolk start to outnumber the deaths of the ruling class.</p>
+                        <p>Here, I define nobility as any character with a legitimized claim to a house's banners. This admittedly does not capture the intricacies of Westerosi power dynamics: when the Starks rally the banners of the North, the Cassels must answer. Even with this loose definition of "nobility," deaths of named smallfolk start to outnumber the deaths of the ruling class.</p>
 
-                        <p style="font-size:16px;">Consider this, though: we experience this series largely through the eyes of these ruling elites. The smallfolk of Westeros, though, are only represented in the occasional hedge knight, baker, or innkeeper. Even when their lords don't call them to defend their region, all too many fall victim to state-approved civilian violence or the egos of a rival house. The nobility may be the key players, but their smallfolk are the pawns who pay the price.<p>
+                        <p>Consider this, though: we experience this series largely through the eyes of these ruling elites. The smallfolk of Westeros, though, are only represented in the occasional hedge knight, baker, or innkeeper. Even when their lords don't call them to defend their region, all too many fall victim to state-approved civilian violence or the egos of a rival house. The nobility may be the key players, but their smallfolk are the pawns who pay the price.</p>
                     </td>
                 </tr>
             </table>
@@ -77,15 +77,15 @@
                     </td>
 
                     <td>
-                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">"'The man who passes the sentence should swing the sword.'"
+                        <blockquote>"'The man who passes the sentence should swing the sword.'"
                         </blockquote>
 
-                        <p style="font-size:16px;">In a series based loosely on The War of the Roses, it should come as no surprise that swords cause more character deaths than any other method. This doesn't count characters whose deaths are mentioned, but not explicitly detailed. Many of those anonymous deaths occur in various battles, so it is safe to assume that this number is artifically small.</p>
-                        <p style="font-size:16px;">It's interesting to note that the nine next most common forms of death are all about level with one another. Even off the battlefield, life in Westeros is perilous, and no one is guaranteed safety.</p>
+                        <p>In a series based loosely on The War of the Roses, it should come as no surprise that swords cause more character deaths than any other method. This doesn't count characters whose deaths are mentioned, but not explicitly detailed. Many of those anonymous deaths occur in various battles, so it is safe to assume that this number is artifically small.</p>
+                        <p>It's interesting to note that the nine next most common forms of death are all about level with one another. Even off the battlefield, life in Westeros is perilous, and no one is guaranteed safety.</p>
                     </td>
                 </tr>
             </table>
-            {% comment %}
+           
             <h2>Death throughout the series</h2>
             <table>
                 <tr>
@@ -94,107 +94,107 @@
                     </td>
 
                     <td>
-                        <blockquote style="font-size:20px; line-height: 24px; font-style:italic;">"Leave one wolf alive and the sheep are never safe."
+                        <blockquote>"Leave one wolf alive and the sheep are never safe."
                         </blockquote>
-                        <p style="font-size:16px;">If we consider just the five most common ways that characters die in <i>A Song of Ice and Fire</i>, we can track the focuses and pivotal moments of each book. For example, sword deaths are at an absolute maximum in the first novel: the war is just beginning, and readers ought to be aware of what they're in for. Politics take a more prominent role as the series continues, and the manners of death seem to reflect this. With fewer major battle scenes, methods of death are far more sporadic.</p>
-                        <p style="font-size:16px;">A particularly interesting data point: take a look at how death by bow and arrow spikes in <i>A Storm of Swords</i>. Sure wonder what that's from.</p>
+                        <p>If we consider just the five most common ways that characters die in <i>A Song of Ice and Fire</i>, we can track the focuses and pivotal moments of each book. For example, sword deaths are at an absolute maximum in the first novel: the war is just beginning, and readers ought to be aware of what they're in for. Politics take a more prominent role as the series continues, and the manners of death seem to reflect this. With fewer major battle scenes, methods of death are far more sporadic.</p>
+                        <p>A particularly interesting data point: take a look at how death by bow and arrow spikes in <i>A Storm of Swords</i>. Sure wonder what that's from.</p>
                     </td>
                 </tr>
             </table>
 
-            <h3 style="text-align:center;font-size:20px;font-style:italic;margin-top:40px;">There is only one god, and His name is Death. And there is only one thing we say to Death:</h3>
-            <h2 style="text-align:center;font-size:36px;font-style:italic;font-family: 'Cinzel', serif;margin-top:0;margin-bottom:40px">"Not today."</h2> {% endcomment %}
+            <h3>There is only one god, and His name is Death. And there is only one thing we say to Death:</h3>
+            <h2 class="footer">"Not today."</h2> 
 
         </main>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.2/Chart.min.js"></script>
-    
         <script>
-            fetch('{% url "overview_bar_chart_json" %}')
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(myJson) {
-                console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("gender").getContext("2d")
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: myJson
-                });
-            });
 
-            fetch('{% url "chapter_line_chart_json" %}')
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(myJson) {
-                console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("series").getContext("2d")
-                new Chart(ctx, {
-                    type: 'line', data: myJson
-                });
-            });
+fetch('{% url "overview_bar_chart_json" %}')
+    .then(function (response) {
+         return response.json();
+    })
+    .then(function (myJson) {
+        console.log(JSON.stringify(myJson));
+        const ctx = document.getElementById("gender").getContext("2d")
+        new Chart(ctx, {
+            type: 'bar',
+            data: myJson
+        });
+    });
+ 
+ fetch('{% url "chapter_line_chart_json" %}')
+     .then(function (response) {
+         return response.json();
+     })
+     .then(function (myJson) {
+         console.log(JSON.stringify(myJson));
+         const ctx = document.getElementById("series").getContext("2d")
+         new Chart(ctx, {
+             type: 'line', data: myJson
+         });
+     });
 
-            fetch('{% url "social_class_line_chart_json" %}')
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(myJson) {
-                console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("socialclass").getContext("2d")
-                new Chart(ctx, {
-                    type: 'bar', data: myJson, options:{
-                   scales: {
-                       xAxes: [{
-                           display:true
-                              }],
-                       yAxes: [{
-                           ticks: {
-                               beginAtZero:true
-                                   }
-                               }]
-                            }
-                        }
-                      });
-            })
+ fetch('{% url "social_class_line_chart_json" %}')
+     .then(function (response) {
+         return response.json();
+     })
+     .then(function (myJson) {
+         console.log(JSON.stringify(myJson));
+         const ctx = document.getElementById("socialclass").getContext("2d")
+         new Chart(ctx, {
+             type: 'bar', data: myJson, options: {
+                 scales: {
+                     xAxes: [{
+                         display: true
+                     }],
+                     yAxes: [{
+                         ticks: {
+                             beginAtZero: true
+                         }
+                     }]
+                 }
+             }
+         });
+     })
 
-            fetch('{% url "manner_of_death_line_chart_json" %}')
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(myJson) {
-                console.log(JSON.stringify(myJson));
-                const ctx = document.getElementById("mannerofdeath").getContext("2d")
-                new Chart(ctx, {
-                    type: 'bar', data: myJson, options:{
-                   scales: {
-                       xAxes: [{
-                           display:true
-                              }],
-                       yAxes: [{
-                           ticks: {
-                               beginAtZero:true
-                                   }
-                               }]
-                            }
-                        }
-                      });
-                });
-                
-                {% comment %} 
-                fetch('{% url "death_by_book_json" %}')
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(myJson) {
-                    console.log(JSON.stringify(myJson));
-                    const ctx = document.getElementById("bookdeath").getContext("2d")
-                    new Chart(ctx, {
-                        type: 'line', data: myJson
-                    });
-                });
+ fetch('{% url "manner_of_death_line_chart_json" %}')
+     .then(function (response) {
+         return response.json();
+     })
+     .then(function (myJson) {
+         console.log(JSON.stringify(myJson));
+         const ctx = document.getElementById("mannerofdeath").getContext("2d")
+         new Chart(ctx, {
+             type: 'bar', data: myJson, options: {
+                 scales: {
+                     xAxes: [{
+                         display: true
+                     }],
+                     yAxes: [{
+                         ticks: {
+                             beginAtZero: true
+                         }
+                     }]
+                 }
+             }
+         });
+     });
 
-             {% endcomment %}
-        
+
+ fetch('{% url "death_by_book_json" %}')
+     .then(function (response) {
+         return response.json();
+     })
+     .then(function (myJson) {
+         console.log(JSON.stringify(myJson));
+         const ctx = document.getElementById("bookdeath").getContext("2d")
+         new Chart(ctx, {
+             type: 'line', data: myJson
+         });
+});
+
+
+
         </script>
     </body>
 </html>

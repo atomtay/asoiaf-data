@@ -35,15 +35,8 @@ h1{
 }
 
 h2{
-    text-align:center;
-    font-size:36px;
-    font-style:italic;
-    margin-top:0;
-    margin-bottom:40px;
-}
-
-.footer {
-    font-family: 'Cinzel',serif;
+    text-align: center;
+    font-size: 36px;
 }
 
 h3{
@@ -58,7 +51,7 @@ p{
 }
 
 blockquote{
-    font-size:20px!important;
+    font-size:20px;
     line-height: 24px;
     font-style:italic;
 }
